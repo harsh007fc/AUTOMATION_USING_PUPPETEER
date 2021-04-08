@@ -40,14 +40,19 @@ browserWillBeLaunchedPromise.then(function(browserInstance)  //page launch ka pr
     return clickOnFacebookIconPromise;
 }).then(function()
 {
-    console.log("logged into facebook and went to home page successfully");
+    let postLikedpromise = waitAndClick("div[aria-label='Like']");    //click on likes or dislikes of posts of first page -> div[aria-label='Remove Like']
+    return postLikedpromise;
+}).then(function()
+{
+    console.log("logged into facebook and went to home page and liked first post successfully");
 }).catch(function (err)
 {
-    console.log(err);
+    console.log("already liked or disliked");
 })
 
     
 
+//this function is made to wait for selector while our page is loading
 
 function waitAndClick(selector) {
 return new Promise(function(resolve,reject)
