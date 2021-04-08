@@ -32,7 +32,15 @@ browserWillBeLaunchedPromise.then(function(browserInstance)  //page launch ka pr
     return loginWillBeClickedPromise;
 }).then(function()
 {
-    console.log("logged into facebook");
+    let clickAwayPromise = waitAndClick("div[aria-label='Facebook']");   //click away to get rid of popup
+    return clickAwayPromise;
+}).then(function()
+{
+    let clickOnFacebookIconPromise = waitAndClick("a[aria-label='Home']");  //click on facebook icon to go to home
+    return clickOnFacebookIconPromise;
+}).then(function()
+{
+    console.log("logged into facebook and went to home page successfully");
 }).catch(function (err)
 {
     console.log(err);
@@ -40,3 +48,23 @@ browserWillBeLaunchedPromise.then(function(browserInstance)  //page launch ka pr
 
     
 
+
+function waitAndClick(selector) {
+return new Promise(function(resolve,reject)
+{
+    let selectorWaitPromise = page.waitForSelector(selector,{visible:true})   //waitForSelector is inbuilt of puppetter and it takes two param as given
+    
+    selectorWaitPromise.then(function()
+    {
+        // let clickOnSelectorPromise = page.click("div[data-pagelet='root']");  //click away selector to avoid notification popup
+        let clickOnSelectorPromise = page.click(selector); 
+        return clickOnSelectorPromise;
+    }).then(function ()
+    {
+        resolve();
+    }).catch(function(err)
+    {
+        reject(err);
+    })
+})
+}
