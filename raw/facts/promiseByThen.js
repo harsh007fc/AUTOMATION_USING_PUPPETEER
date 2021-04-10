@@ -3,21 +3,27 @@ let fs = require("fs");
 let frP = fs.promises.readFile("f1.txt");
 console.log("before");
 
-let thenKp  =frP.then(cb);  //thenKp then ke andr callback pr depend krta hai jo callback return krega vo uski future valure hogi 
+let thenKp  = frP.then(cb);  //thenKp then ke andr callback pr depend krta hai jo callback return krega vo uski future valure hogi 
 
 console.log("then ka pomise",thenKp)
 
 function cb(data)
 {
     console.log("data->"+data);
-    return 10; //yeh thenKp ki future value hogi
-    // return new Promise;
+    // return 10; //yeh thenKp ki future value hogi
+    return fs.promises.readFile("f2.txt");
 }
 
-setTimeout(function()
+
+thenKp.then(function(data)
 {
-    console.log("then ka promise",thenKp);
-},1000);
+    console.log("thenKp ka value->"+data)
+})
+
+// setTimeout(function()
+// {
+//     console.log("then ka promise",thenKp);
+// },1000);
 
 console.log("after");
 console.log("```````````````````````````````````");
