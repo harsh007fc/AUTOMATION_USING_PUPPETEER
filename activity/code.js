@@ -1,7 +1,9 @@
 module.exports = {
 
-    codes:[{ qname:"Counting Valleys",
-    soln:`#include <iostream>
+    codes: [
+        {
+            qname: "Counting Valleys",
+            soln: `#include <iostream>
     #include <cstdio>
     #include <string>
     #include <sstream> 
@@ -66,6 +68,77 @@ module.exports = {
         }
         assert(level == 0);
         cout << res << endl;
-    }`}]
-   
+    }`},
+        {
+            qname: "Sales by Match",
+            soln: `#include <bits/stdc++.h>
+                   using namespace std;
+                   int main() {
+	               int n;
+                   cin>>n;
+	                int freq[101] = {};
+	               for(int i = 0; i < n; i++) {
+        int c;
+        cin >> c;
+        freq[c]++;
+    }
+
+	int res = 0;
+	for(int i = 0; i <= 100; i++){
+         res += freq[i] / 2;
+     }
+	cout << res << endl;
+	return 0;
+}`},
+        {
+            qname: "Jumping on the Clouds",
+            soln: `#include <bits/stdc++.h>
+using namespace std;
+
+const int inf = 555;
+int A[111], dp[111];
+
+int main() {
+    int n; cin >> n;
+
+    for(int i=1; i<=n; i++) {
+        cin >> A[i];
+    }
+    for(int i=2; i<=n; i++) {
+        if(A[i] == 0) dp[i] = min(dp[i-1], dp[i-2]) + 1;
+        else dp[i] = inf;
+    }
+    cout << dp[n] << "\n";
+    return 0;
+}`},
+        {
+            qname: "Repeated String",
+            soln: `#include <bits/stdc++.h>
+
+using namespace std;
+
+typedef long long ll;
+
+
+
+int main()
+{
+    string s;
+    cin >> s;
+    ll n;
+    cin >> n;
+    ll ans = 0;
+    int A = 0;
+    int B = 0;
+    for (int i = 0; i < (int)s.size(); i++)
+    {
+       if (s[i] == 'a') A++;
+       if ((ll)i < n % (ll)s.size() && s[i] == 'a') B++;
+    }
+
+    cout << n / (ll)s.size() * (ll)A + (ll) B << endl;
+    return 0;
+}
+`}]
+
 }
