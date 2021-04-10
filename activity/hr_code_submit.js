@@ -154,15 +154,14 @@ function questionSolver(modulePageUrl,questionName,code)
         {
             let vIspressPromise = page.keyboard.press("v");
             return vIspressPromise;
-        }).then(function () {  //clicked on submit
-            let submitIsClickedPromise = page.click(".pull-right.btn.btn-primary.hr-monaco-submit");
-            return submitIsClickedPromise;
         }).then(function()  //ctrl is released  
         {
             let controlIsReleasedPromise = page.keyboard.up("Control");
             return controlIsReleasedPromise;
-        })
-        .then(function()
+        }).then(function () {  //clicked on submit
+            let submitIsClickedPromise = page.click(".pull-right.btn.btn-primary.hr-monaco-submit");
+            return submitIsClickedPromise;
+        }).then(function()
         {
             resolve();
         }).catch(function(err)
