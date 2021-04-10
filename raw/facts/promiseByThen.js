@@ -10,8 +10,8 @@ console.log("then ka pomise",thenKp)
 function cb(data)
 {
     console.log("data->"+data);
-    // return 10; //yeh thenKp ki future value hogi
-    return new Promise;
+    return 10; //yeh thenKp ki future value hogi
+    // return new Promise;
 }
 
 setTimeout(function()
