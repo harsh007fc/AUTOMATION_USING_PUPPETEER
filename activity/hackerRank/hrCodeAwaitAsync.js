@@ -1,5 +1,5 @@
 let puppeteer = require("puppeteer");
-let { password, email } = require("../raw/pocs/secrets");
+let { password, email } = require("../../../raw/pocs/secrets");
 let { codes } = require("./code");
 let fs = require("fs");
 console.log("Before");

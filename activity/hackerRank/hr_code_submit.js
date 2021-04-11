@@ -2,7 +2,7 @@
 //actually promises are not used in production level
 //at production level we use ->async await
 let puppeteer = require("puppeteer");
-let {email,password} = require("../raw/pocs/secrets");
+let {email,password} = require("../../../raw/pocs/secrets");
 let {codes} = require("./code");
 let page;
 console.log("before");

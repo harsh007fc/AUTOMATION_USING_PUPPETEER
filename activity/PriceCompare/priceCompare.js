@@ -41,7 +41,7 @@ async function getListingsFromAmazon(link,browserInstance,pName)
 {
     let newPage = await browserInstance.newPage();
      await newPage.goto(link);
-     await newPage.type("input[id='twotabsearchtextbox']",pName,{delay:200});
+     await newPage.type("#twotabsearchtextbox",pName,{delay:200});
      await newPage.click("#nav-search-submit-button");
      await newPage.waitForSelector(".a-price-whole",{visible:true});
      await newPage.waitForSelector(".a-size-medium.a-color-base.a-text-normal",{visible:true});
@@ -67,8 +67,6 @@ async function getListingsFromAmazon(link,browserInstance,pName)
     return detailsArr;
     // console.table(detailsArr);
 };
-
-
 
 //=======================SELECTORS of amazon==================================
  //card selector -> .s-include-content-margin.s-border-bottom.s-latency-cf-section
@@ -110,10 +108,6 @@ async function getListingsFromFlipkart(link,browserInstance,pName)
     return detailsArr;
     // console.table(detailsArr);
 };
-
-
-
-
 
 //paytmmall wali scrapping
 async function getListingsFromPaytm(link,browserInstance,pName)
