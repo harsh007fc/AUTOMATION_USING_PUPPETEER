@@ -1,5 +1,6 @@
 let puppeteer = require("puppeteer");
 let fs = require("fs"); 
+const { count } = require("console");
 //views easily done 
 //no of videos easily done
 //watch time ->get
@@ -29,33 +30,41 @@ let fs = require("fs");
 console.log("Before");
 
 (async function () {
-    try 
-    {
+    try {
         let browserInstance = await puppeteer.launch({
             headless: false,
             defaultViewport: null,
             args: ["--start-maximized",]
         });
-       let newPage = await browserInstance.newPage();
+        let newPage = await browserInstance.newPage();
 
-       await newPage.goto("https://www.youtube.com/playlist?list=PLRBp0Fe2GpgnIh0AiYKh7o7HnYAej-5ph");
-       
-       
-       let detailsArr = await newPage.evaluate(consoleFn);
-    //    console.table(detailsArr);
+        await newPage.goto("https://www.youtube.com/playlist?list=PLRBp0Fe2GpgnIh0AiYKh7o7HnYAej-5ph");
 
-       let videoCount = arr[0].split(" ")[0]; 
-       videoCount = Number(videoCount);
-       console.log(detailsArr[0]);
-       console.log(detailsArr[1]);
 
-      let nameNdurationArr = await newPage.evaluate(getStats,"span[class='style-scope ytd-thumbnail-overlay-time-status-renderer']","#video-title");
+        let detailsArr = await newPage.evaluate(consoleFn);
+        //    console.table(detailsArr);
 
-      console.table(nameNdurationArr);
-            
+        let videoCount = detailsArr[0].split(" ")[0];
+        videoCount = Number(videoCount);
+        console.log(detailsArr[0]);
+        console.log(detailsArr[1]);
+
+        
+
+        let currentPageVideoCount =  await scrollToBottom(newPage,"#video-title");
+
+        while (videoCount - 50 > currentPageVideoCount) {
+            // console.log("scrolled");
+            currentPageVideoCount =  await scrollToBottom(newPage,"#video-title");
+        }
+
+
+        let nameNdurationArr = await newPage.evaluate(getStats, "span[class='style-scope ytd-thumbnail-overlay-time-status-renderer']", "#video-title");
+
+        console.table(nameNdurationArr);
+
     }
-    catch (err)
-    {
+    catch (err) {
         console.log(err);
     }
 })();
@@ -85,5 +94,17 @@ function getStats(durationOfVideo,nameOfVideo)
     return nameNdurationArr;
 }
 
+async function scrollToBottom(page,nameOfVideo)
+{
+    function getLengthConsoleFn(nameOfVideo)
+    {
+        window.scrollBy(0,window.innerHeight);
+        let nameElemsArr = document.querySelectorAll(nameOfVideo);
+        console.log("titleLength",nameElemsArr.length);
+        return nameElemsArr.length;
+    }
+    
+    return page.evaluate(getLengthConsoleFn,nameOfVideo);    
+}
 
 console.log("After");
