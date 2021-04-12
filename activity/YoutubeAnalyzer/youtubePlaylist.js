@@ -58,10 +58,13 @@ console.log("Before");
             currentPageVideoCount =  await scrollToBottom(newPage,"#video-title");
         }
 
+        
+
 
         let nameNdurationArr = await newPage.evaluate(getStats, "span[class='style-scope ytd-thumbnail-overlay-time-status-renderer']", "#video-title");
 
-        console.table(nameNdurationArr);
+        // console.table(nameNdurationArr);
+        console.log(currentPageVideoCount);
 
     }
     catch (err) {
@@ -101,6 +104,10 @@ async function scrollToBottom(page,nameOfVideo)
         window.scrollBy(0,window.innerHeight);
         let nameElemsArr = document.querySelectorAll(nameOfVideo);
         console.log("titleLength",nameElemsArr.length);
+        if(nameElemsArr.length == 899)
+        {
+            console.log(nameElemsArr);
+        }
         return nameElemsArr.length;
     }
     
